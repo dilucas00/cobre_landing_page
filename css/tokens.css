@@ -1,0 +1,101 @@
+/* ==========================================================================
+   COBRE — design tokens  ·  v1.0
+   Fonte única de verdade da identidade visual. Importe este arquivo antes
+   de qualquer outro CSS (landing, app desktop, mobile).
+   Contrastes WCAG medidos; os pares aprovados estão anotados.
+   ========================================================================== */
+
+:root {
+  /* ---------- Paleta bruta (nunca usar direto em componentes) ---------- */
+  --cobre-carvao:   #121110;  /* fundo principal                               */
+  --cobre-grafite:  #181614;  /* painéis e cartões                             */
+  --cobre-linha:    #2a2623;  /* divisores                                     */
+  --cobre-trilho:   #3a3430;  /* contornos de controles, trilhos de slider     */
+  --cobre-creme:    #ece6df;  /* texto principal           (15,2:1 sobre carvão) */
+  --cobre-pedra:    #8d847b;  /* texto secundário           (5,1:1 sobre carvão) */
+  --cobre-cobre:    #c9773f;  /* cor da marca               (5,6:1 sobre carvão) */
+  --cobre-brilho:   #e6a06a;  /* reflexo do cobre, ênfase   (8,6:1 sobre carvão) */
+  --cobre-patina:   #6fb5a5;  /* apoio: "tocando agora", ok (7,9:1 sobre carvão) */
+
+  --cobre-papel:    #f4efe8;  /* fundo, tema claro                             */
+  --cobre-papel-2:  #ebe4da;  /* painéis, tema claro                           */
+  --cobre-linha-c:  #d9cfc2;
+  --cobre-trilho-c: #cfc4b5;
+  --cobre-tinta:    #241f1a;  /* texto, tema claro          (14,3:1 sobre papel) */
+  --cobre-pedra-c:  #6f655a;  /* secundário, tema claro      (5,0:1 sobre papel) */
+  --cobre-profundo: #964f1d;  /* cobre no tema claro         (5,3:1 sobre papel) */
+  --cobre-patina-c: #276d5f;  /* pátina no tema claro        (5,3:1 sobre papel) */
+
+  /* ---------- Papéis semânticos — tema escuro (padrão) ---------- */
+  --bg:         var(--cobre-carvao);
+  --panel:      var(--cobre-grafite);
+  --line:       var(--cobre-linha);
+  --track:      var(--cobre-trilho);
+  --text:       var(--cobre-creme);
+  --muted:      var(--cobre-pedra);
+  --accent:     var(--cobre-cobre);
+  --accent-hi:  var(--cobre-brilho);
+  --on-accent:  var(--cobre-carvao);   /* carvão sobre cobre = 5,6:1. NUNCA branco (3,4:1 reprova) */
+  --ok:         var(--cobre-patina);
+
+  /* ---------- Tipografia ---------- */
+  --font-display: 'Bricolage Grotesque', system-ui, sans-serif;  /* 400 · 600 · 800 */
+  --font-mono:    'JetBrains Mono', ui-monospace, monospace;      /* 400 · 500       */
+
+  --fs-display: clamp(2.5rem, 6.4vw, 4.875rem); /* h1 — 800, lh 1.0,  ls -0.035em */
+  --fs-title:   clamp(1.875rem, 4.2vw, 3.125rem); /* h2 — 800, lh 1.05, ls -0.03em  */
+  --fs-heading: 1.625rem;                        /* h3 — 800, lh 1.15, ls -0.02em  */
+  --fs-lead:    1.1875rem;                       /* 600→400, lh 1.5               */
+  --fs-body:    1.0625rem;                       /* 400, lh 1.6                   */
+  --fs-small:   0.9375rem;
+  --fs-meta:    0.8125rem;                       /* mono, 500 — formato, tempo, bitrate */
+
+  /* ---------- Forma ---------- */
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 22px;
+  --r-pill: 99px;
+  --r-disc: 50%;               /* capas e botão de play são sempre círculos */
+
+  /* ---------- Espaço (base 4) ---------- */
+  --s-1: 4px;  --s-2: 8px;  --s-3: 12px; --s-4: 16px;
+  --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 80px;
+
+  /* ---------- Movimento: "aquecer" ---------- */
+  --ease-warm: cubic-bezier(.22, .8, .24, 1);
+  --t-fast: 120ms;
+  --t-base: 240ms;
+  --t-slow: 480ms;
+  --glow: 0 0 36px color-mix(in srgb, var(--accent) 38%, transparent);
+  --shadow-lift: 0 30px 80px #0008;
+
+  /* ---------- Assinatura: o disco de cobre ---------- */
+  --disc: conic-gradient(from 20deg, #6b2d12, #c9773f, #e6a06a, #8a3d17, #3a1a0c, #c9773f, #6b2d12);
+}
+
+/* ---------- Tema claro ---------- */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: var(--cobre-papel);   --panel: var(--cobre-papel-2);
+    --line: var(--cobre-linha-c); --track: var(--cobre-trilho-c);
+    --text: var(--cobre-tinta);   --muted: var(--cobre-pedra-c);
+    --accent: var(--cobre-profundo); --accent-hi: var(--cobre-profundo);
+    --on-accent: #ffffff;         /* branco sobre cobre profundo = 6,1:1 */
+    --ok: var(--cobre-patina-c);
+    --shadow-lift: 0 30px 80px #2a1a0e30;
+  }
+}
+:root[data-theme="light"] {
+  --bg: var(--cobre-papel);   --panel: var(--cobre-papel-2);
+  --line: var(--cobre-linha-c); --track: var(--cobre-trilho-c);
+  --text: var(--cobre-tinta);   --muted: var(--cobre-pedra-c);
+  --accent: var(--cobre-profundo); --accent-hi: var(--cobre-profundo);
+  --on-accent: #ffffff;
+  --ok: var(--cobre-patina-c);
+  --shadow-lift: 0 30px 80px #2a1a0e30;
+}
+
+/* ---------- Movimento reduzido ---------- */
+@media (prefers-reduced-motion: reduce) {
+  :root { --t-fast: 0ms; --t-base: 0ms; --t-slow: 0ms; --glow: none; }
+}

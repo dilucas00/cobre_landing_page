@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cobre — o player de música para a sua biblioteca local</title>
+<meta name="description" content="Cobre é um player de música para Windows que toca os arquivos da sua biblioteca local, com capas, letras, equalizador e visualizações.">
+<meta name="theme-color" content="#121110">
+<script>if ('scrollRestoration' in history) history.scrollRestoration = 'manual';</script>
+<link rel="icon" href="assets/cobre-icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+<a class="skip" href="#story">Pular para o conteúdo</a>
+
+<canvas id="stage" aria-hidden="true"></canvas>
+<div class="glow" aria-hidden="true"></div>
+<div class="fallback" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+<div class="scrim l" id="scrimL" aria-hidden="true"></div>
+<div class="scrim r" id="scrimR" aria-hidden="true"></div>
+<div class="scrim c" id="scrimC" aria-hidden="true"></div>
+<div class="scrim b" id="scrimB" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="dock" id="dock">
+ <nav class="deck-bar" aria-label="Principal">
+  <a class="logo" href="#inicio" translate="no"><img alt="" src="assets/cobre-mark.svg" width="28" height="28">Cobre</a>
+  <span class="sep" aria-hidden="true"></span>
+  <ul class="tracks" id="tracks">
+   <li><a class="tk" href="#sobre" data-ch="1"><span class="tn" aria-hidden="true">02</span>Sobre</a></li>
+   <li><a class="tk" href="#recursos" data-ch="2-8"><span class="tn" aria-hidden="true">03</span>Recursos</a></li>
+   <li><a class="tk" href="#como" data-ch="9"><span class="tn" aria-hidden="true">10</span>Como funciona</a></li>
+   <li class="tk-ind" id="tkInd" aria-hidden="true"></li>
+  </ul>
+  <div class="np" aria-hidden="true">
+   <span class="eqb"><i></i><i></i><i></i><i></i><i></i></span>
+   <span class="np-t"><span class="np-n">FAIXA <b id="hudN">01</b>/11</span><span class="np-name" id="hudName">Início</span></span>
+  </div>
+  <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="sheet" aria-label="Abrir faixas"><span></span><span></span></button>
+  <a class="btn sm dl-btn" id="dlBtn" href="#downloads"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.5v7.5M4.8 7 8 10.2 11.2 7M3 13.5h10"/></svg>Downloads</a>
+  <div class="groove" aria-hidden="true"><i id="hudBar"></i><b id="needle"></b></div>
+ </nav>
+</header>
+<div class="sheet" id="sheet" hidden>
+  <p class="kick mono">LADO A · 11 FAIXAS</p>
+  <ol id="sheetList"></ol>
+  <a class="btn" href="#downloads"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.5v7.5M4.8 7 8 10.2 11.2 7M3 13.5h10"/></svg>Downloads</a>
+</div>
+
+<main id="story" tabindex="-1">
+
+  <!-- FAIXA 01 -->
+  <section class="ch hero" id="inicio" data-cam="0" data-side="l" data-name="Início">
+    <div class="panel">
+      <p class="kick mono rv">LADO A · PLAYER DE MÚSICA LOCAL</p>
+      <h1 class="rv">Sua música, <em>do seu jeito</em>, no seu PC.</h1>
+      <p class="lead rv">Cobre é um player para Windows que toca os arquivos da sua biblioteca local, com capas em destaque, letras, equalizador e visualizações.</p>
+      <div class="cta rv"><a class="btn" href="#downloads">Ver downloads</a><a class="btn g" href="#recursos">Explorar recursos</a></div>
+      <p class="tag mono rv">Desktop para Windows · versão de instalação em breve</p>
+    </div>
+    <div class="cue mono" aria-hidden="true">ROLE PARA TOCAR<i></i></div>
+  </section>
+
+  <!-- FAIXA 02 -->
+  <section class="ch sobre" id="sobre" data-cam="1" data-side="l" data-name="Sobre">
+    <div class="panel">
+      <p class="kick mono rv">FAIXA 02 · SOBRE</p>
+      <h2 class="rv">Uma biblioteca que parece uma estante de discos.</h2>
+      <p class="sub rv">O Cobre lê os metadados dos seus arquivos e organiza tudo em álbuns, artistas e gêneros, em uma grade de capas circulares. Escolha uma pasta e comece a ouvir.</p>
+      <div class="shot rv"><img src="assets/cobre-desktop-biblioteca.jpg" width="1280" height="720" alt="Tela do Cobre Desktop: grade de artistas com capas circulares e o player à esquerda" decoding="async"></div>
+      <p class="cap mono rv">Captura real do Cobre Desktop, com a biblioteca de um usuário.</p>
+    </div>
+  </section>
+
+  <!-- FAIXA 03 -->
+  <section class="ch" id="recursos" data-cam="2" data-side="r" data-name="Recursos">
+    <div class="panel">
+      <p class="kick mono rv">FAIXA 03 · RECURSOS</p>
+      <h2 class="rv">O que o Cobre Desktop <em>já faz</em>.</h2>
+      <p class="sub rv">A agulha desceu. Continue rolando: cada faixa deste disco é um recurso.</p>
+    </div>
+  </section>
+
+  <!-- FAIXA 04 -->
+  <section class="ch" id="biblioteca" data-cam="3" data-side="l" data-name="Biblioteca">
+    <div class="panel">
+      <p class="kick mono rv">FAIXA 04 · BIBLIOTECA</p>
+      <h3 class="rv">Álbuns, artistas, gêneros e mais</h3>
+      <p class="rv">A biblioteca é montada a partir dos metadados dos seus arquivos.</p>
+      <ul class="rv"><li>Visões: álbuns, artistas, gêneros, playlists e faixas</li><li>Ordenação por artista, ano ou título</li><li>Busca e botão de álbum aleatório</li><li>Mais ouvidos do mês (álbuns e faixas)</li></ul>
+      <div class="viz chips rv"><button type="button" class="chip on">Álbuns</button><button type="button" class="chip">Artistas</button><button type="button" class="chip">Gêneros</button><button type="button" class="chip">Playlists</button><button type="button" class="chip">Faixas</button></div>
+    </div>
+  </section>
+
+  <!-- FAIXA 05 -->
+  <section class="ch" id="capas" data-cam="4" data-side="r" data-name="Capas">
+    <div class="panel">
+      <p class="kick mono rv">FAIXA 05 · CAPAS</p>
+      <h3 class="rv">Capas que fazem parte da experiência</h3>
+      <p class="rv">Mostra a capa embutida nos arquivos e, quando falta, pode buscá-las online.</p>
+      <ul class="rv"><li>Grade de capas circulares</li><li>Busca de capas ausentes em serviços online</li><li>Opção de restaurar capas</li></ul>
+      <div class="circles rv" id="circles"></div>
+    </div>
+  </section>
+
+  <!-- FAIXA 06 -->
+  <section class="ch" id="letras" data-cam="5" data-side="l" data-name="Letras">
+    <div class="panel">
+      <p class="kick mono rv">FAIXA 06 · LETRAS</p>
+      <h3 class="rv">Letras enquanto você ouve</h3>
+      <p class="rv">Lê letras de arquivos .lrc ou .txt ao lado da música e também consegue buscá-las online.</p>
+      <ul class="rv"><li>Arquivos .lrc e .txt locais</li><li>Busca online (LRCLIB)</li><li>Letras também no modo cinema</li></ul>
+      <div class="lyr rv" aria-hidden="true">linha anterior<br><span class="a">linha que está tocando</span><br>próxima linha</div>
+    </div>
+  </section>
+
+  <!-- FAIXA 07 -->
+  <section class="ch" id="audio" data-cam="6" data-side="r" data-name="Áudio">
+    <div class="panel">
+      <p class="kick mono rv">FAIXA 07 · ÁUDIO</p>
+      <h3 class="rv">Equalizador e transições</h3>
+      <p class="rv">Controles de áudio para moldar o som.</p>
+      <ul class="rv"><li>Equalizador</li><li>Transição entre faixas: normal, gapless ou crossfade</li><li>Efeito “Valvulado” (calor suave, sem distorção)</li><li>Escolha da saída de áudio</li></ul>
+      <div class="eq rv" id="eq"></div>
+    </div>
+  </section>
+
+  <!-- FAIXA 08 -->
+  <section class="ch" id="visual" data-cam="7" data-side="l" data-name="Visual">
+    <div class="panel">
+      <p class="kick mono rv">FAIXA 08 · VISUAL</p>
+      <h3 class="rv">Visualizações e modo cinema</h3>
+      <p class="rv">Troque a capa por uma visualização e deixe a tela cheia para curtir.</p>
+      <ul class="rv"><li>Visualizações alternáveis, incluindo Válvulas</li><li>Ajustes de vinil</li><li>Modo cinema e tela cheia</li><li>Barra de tempo em linha, onda ou disco</li></ul>
+      <div class="viz chips rv"><button type="button" class="chip on">Capa</button><button type="button" class="chip">Visualização</button><button type="button" class="chip">Vinil</button><button type="button" class="chip">Cinema</button></div>
+    </div>
+  </section>
+
+  <!-- FAIXA 09 -->
+  <section class="ch" id="extras" data-cam="8" data-side="r" data-name="Extras">
+    <div class="panel">
+      <p class="kick mono rv">FAIXA 09 · EXTRAS</p>
+      <h3 class="rv">Detalhes que ajudam no dia a dia</h3>
+      <p class="rv">Pequenos recursos além de tocar.</p>
+      <ul class="rv"><li>Mini player sempre visível</li><li>Ranking de álbuns (tier list)</li><li>Last.fm opcional (scrobble)</li><li>Acesso remoto na rede local</li></ul>
+      <div class="viz chips rv"><button type="button" class="chip on">Mini player</button><button type="button" class="chip">Tier list</button><button type="button" class="chip">Last.fm</button><button type="button" class="chip">Rede local</button></div>
+    </div>
+  </section>
+
+  <!-- FAIXA 10 -->
+  <section class="ch" id="como" data-cam="9" data-side="l" data-name="Como funciona">
+    <div class="panel">
+      <p class="kick mono rv">FAIXA 10 · COMO FUNCIONA</p>
+      <h2 class="rv">Como funciona</h2>
+      <p class="sub rv">Sem conta e sem nuvem para tocar a sua coleção: o Cobre usa os arquivos que já estão no seu computador.</p>
+      <div class="steps">
+        <div class="rv"><b>Escolha a pasta</b><span>Aponte para a pasta com suas músicas. Formatos: MP3, FLAC, WAV, OGG, M4A, AAC e Opus.</span></div>
+        <div class="rv"><b>Navegue pelas capas</b><span>Veja por álbuns, artistas, gêneros, playlists ou faixas, e ordene por artista, ano ou título.</span></div>
+        <div class="rv"><b>Ajuste o som</b><span>Equalizador, transição entre faixas, letras e visualizações enquanto toca.</span></div>
+      </div>
+      <div class="note rv"><b>Sobre o acesso remoto:</b> o Desktop tem um acesso remoto que funciona apenas na rede local (Wi-Fi/LAN). Ele não é streaming pela internet.</div>
+    </div>
+  </section>
+
+  <!-- FAIXA 11 -->
+  <section class="ch downloads" id="downloads" data-cam="10" data-side="c" data-name="Downloads">
+    <div class="panel">
+      <p class="kick mono rv">FAIXA 11 · FIM DO LADO A</p>
+      <h2 class="rv">Downloads</h2>
+      <p class="sub rv">Os links de instalação aparecerão aqui quando as versões forem publicadas.</p>
+      <div class="dl">
+        <div class="card rv"><span class="st soon">Em breve</span><h3>Cobre Desktop</h3><p>Windows. O app já funciona; o instalador público ainda não foi publicado.</p><button class="btn" disabled>Download indisponível</button></div>
+        <div class="card rv"><span class="st soon">Em desenvolvimento</span><h3>Cobre Mobile</h3><p>Versão para Android, em desenvolvimento em paralelo ao Desktop.</p><button class="btn" disabled>Em desenvolvimento</button></div>
+        <div class="card rv"><span class="st">Planejado</span><h3>Cobre TV</h3><p>Ainda é um plano. Sem data e sem recursos definidos.</p></div>
+        <div class="card rv"><span class="st">Planejado</span><h3>Cobre ID e sincronização</h3><p>Conta e sincronização completa ainda são planos, não recursos disponíveis.</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap"><span>© Cobre · site institucional</span><span>Informações sujeitas a mudança conforme o desenvolvimento.</span></div></footer>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+<script src="js/demos.js" defer></script>
+<script src="js/story.js" defer></script>
+<script src="js/scene.js" defer></script>
+</body>
+</html>
